@@ -5,7 +5,7 @@ export const RoleValidator = z.object({
   groupId: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  userIds: z.string().array(),
+  userIds: z.string().array().optional(),
   default: z.boolean().optional(),
 });
 

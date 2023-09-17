@@ -2,22 +2,18 @@ import { beforeEach, describe, expect, it } from 'bun:test';
 import { createGroup } from '../createGroup';
 import { createUser } from '../createUser';
 import { Group } from '../types';
-import { MemoryGroupRepository } from '@adapters/memory/MemoryGroupRepository';
-import { MemoryUserRepository } from '@adapters/memory/MemoryUserRepository';
+import { createMemoryAdapters } from './createMemoryAdapters';
 
 describe("Create group", ()=>{
-  const userRepository = new MemoryUserRepository();
-  const groupRepository = new MemoryGroupRepository();
-  const adapters = { groupRepository, userRepository };
+  const adapters = createMemoryAdapters();
   const userMock = { email: 'johnny@agendamo.net' }
 
   beforeEach(()=>{
-    groupRepository.clear();
-    userRepository.clear();
+    adapters.clear();
   })
 
-  it("Should create a simple group", async ()=>{
-    const user = await createUser(userMock, { userRepository })
+  it("Should create a simple group with a default role in it", async ()=>{
+    const user = await createUser(userMock, adapters)
     const group: Group = {
       admin: user.id,
       title: 'my group',
@@ -26,6 +22,9 @@ describe("Create group", ()=>{
     const savedGroup = await createGroup(group, adapters);
 
     expect(savedGroup.id).toBeString();
+    const roles = await adapters.roleRepository.getByGroupId(savedGroup.id);
+    expect(roles).toBeArray();
+    expect(roles.length).toBe(1);
   })
 
   it("Should throw when admin user does not exist", async ()=>{

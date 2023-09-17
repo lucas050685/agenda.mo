@@ -16,6 +16,10 @@ export class MemoryGroupRepository implements GroupRepository {
     return savedGroup;
   }
 
+  async getById(groupId: string): Promise<SavedGroup | undefined> {
+    return groupDatabase.get(groupId);    
+  }
+
   clear() {
     groupDatabase.clear();
   }
