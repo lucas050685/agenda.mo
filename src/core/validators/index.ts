@@ -9,3 +9,4 @@ export * from './PlaceValidator';
 export * from './RendezvousValidator';
 export * from './RoleValidator';
 export * from './UserValidator';
+export * from './WhereStatementValidator';

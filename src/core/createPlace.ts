@@ -9,7 +9,7 @@ export namespace createPlace {
   }
 }
 
-type Adapters = createPlace.Adapters
+type Adapters = createPlace.Adapters;
 
 export async function createPlace(place: Place, adapters: Adapters): Promise<SavedPlace> {
   if (place.groupId) {

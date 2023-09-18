@@ -1,6 +1,7 @@
 import { UserRepository } from '@core/interfaces';
-import { SavedUser, User } from '@core/types';
+import { SavedUser, User, WhereStatement } from '@core/types';
 import { createEntityBase } from './createEntityBase';
+import { match } from './match';
 
 const userDataBase: Map<string, SavedUser> = new Map();
 
@@ -23,6 +24,11 @@ export class MemoryUserRepository implements UserRepository {
 
     userDataBase.set(user.email, {...savedUser });
     return savedUser
+  }
+
+  async where(where: WhereStatement | WhereStatement[]): Promise<SavedUser[]> {
+    const users = [...userDataBase.values()];
+    return users.filter(user => match(user, where));
   }
 
   clear(){

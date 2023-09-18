@@ -1,3 +1,5 @@
+export * from './BusinessRepository';
+export * from './BusinessRoleRepository';
 export * from './GroupRepository';
 export * from './RoleRepository'
 export * from './UserRepository';

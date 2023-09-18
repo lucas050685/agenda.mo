@@ -4,7 +4,10 @@ import { MemoryPlaceRepository } from "@adapters/memory/MemoryPlaceRepository";
 import { MemoryRendezvousRepository } from "@adapters/memory/MemoryRendezvousRepository";
 import { MemoryRoleRepository } from "@adapters/memory/MemoryRoleRepository";
 import { MemoryUserRepository } from "@adapters/memory/MemoryUserRepository";
-import { User, Group, Role, Rendezvous } from "@core/types";
+import { MemoryBusinessRepository } from "@adapters/memory/MemoryBusinessRepository";
+import { User, Group, Role, Rendezvous, Business } from "@core/types";
+import { address } from "./address.mock";
+import { MemoryBusinessRoleRepository } from "@adapters/memory/MemoryBusinessRoleRepository";
 
 export function createMemoryAdapters(){
   const groupRepository = new MemoryGroupRepository();
@@ -13,6 +16,8 @@ export function createMemoryAdapters(){
   const rendezvousRepository = new MemoryRendezvousRepository();
   const invitationRepository = new MemoryInvitationRepository();
   const placeRepository = new MemoryPlaceRepository();
+  const businessRepository = new MemoryBusinessRepository();
+  const businessRoleRepository = new MemoryBusinessRoleRepository();
 
   const clear = () => {
     groupRepository.clear();
@@ -21,6 +26,8 @@ export function createMemoryAdapters(){
     rendezvousRepository.clear();
     invitationRepository.clear();
     placeRepository.clear();
+    businessRepository.clear();
+    businessRoleRepository.clear();
   };
 
   const pushMocks = async () => {
@@ -42,6 +49,23 @@ export function createMemoryAdapters(){
     };
   };
 
+  const pushMocksWithBusiness = async ()=>{
+    const state = await pushMocks();
+    const business: Business = {
+      title: 'my business',
+      description: 'my business description',
+      admin: state.user.id,
+      address,
+      phoneNumbers: [],
+      email: 'mybusiness@agendamo.net',
+    }
+    const savedBusiness = await businessRepository.save(business);
+    return {
+      ...state,
+      business: savedBusiness,
+    }
+  }
+
   return {
     groupRepository,
     userRepository,
@@ -49,8 +73,11 @@ export function createMemoryAdapters(){
     rendezvousRepository,
     invitationRepository,
     placeRepository,
+    businessRepository,
+    businessRoleRepository,
 
     clear,
     pushMocks,
+    pushMocksWithBusiness,
   };
 }
