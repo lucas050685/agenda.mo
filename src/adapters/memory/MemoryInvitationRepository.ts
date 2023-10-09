@@ -1,6 +1,7 @@
 import { InvitationRepository } from "@core/interfaces";
-import { Invitation, SavedInvitation } from "@core/types";
+import { Invitation, SavedInvitation, WhereStatement } from "@core/types";
 import { createEntityBase } from "./createEntityBase";
+import { match } from "./match";
 
 const invitationDatabase: Map<string, SavedInvitation> = new Map();
 
@@ -12,6 +13,13 @@ export class MemoryInvitationRepository implements InvitationRepository {
     }
     invitationDatabase.set(savedInvitation.id, savedInvitation);
     return {...savedInvitation};
+  }
+
+  async where(where: WhereStatement | WhereStatement[]): Promise<SavedInvitation[]> {
+    const allInvitations = [...invitationDatabase.values()];
+    return allInvitations
+      .filter(invitation => match(invitation, where))
+      .map(invitation => ({...invitation}));
   }
 
   clear() {

@@ -7,6 +7,7 @@ export const UserValidator = z.object({
   email: z.string().email("A valid user email is required"),
   name: z.string().optional(),
   password: z.string().optional(),
+  passwordDetails: z.record(z.any()).optional(),
   phoneNumbers: PhoneNumberValidator.array().optional(),
   addresses: AddressValidator.array().optional(),
 });

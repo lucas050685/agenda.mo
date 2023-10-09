@@ -1,12 +1,12 @@
-import { User } from '@core/types/User';
+import { createMemoryAdapters } from '@factories/createMemoryAdapters';
+import { createApp } from '@server/app';
+import { createUserRouter } from '@server/routes';
 
-const user: User = {
-  name: 'Lucas',
-  email: 'lucas@lucas.com',
-  password: '',
-  phoneNumbers: [],
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-}
+import { config } from './app.config';
 
-console.log(user);
+const adapter = createMemoryAdapters();
+const app = createApp(config);
+
+app.use('/api/user', createUserRouter(adapter))
+
+app.listen();

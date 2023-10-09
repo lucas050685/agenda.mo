@@ -2,7 +2,6 @@ import { WhereStatement, WhereCondition } from "@core/types";
 
 function regexLike(like: string): RegExp {
   const s = like.split('*').join('.*?');
-  console.log(s);
   return new RegExp(`^${s}$`, "g");
 }
 
@@ -48,6 +47,52 @@ function testNot(sampleProp: any, condition: WhereCondition | undefined){
   return !testCondition(sampleProp, condition);
 }
 
+function testContains(sampleProp: any, element: number | string | (string | number)[] | undefined) {
+  if (element === undefined) return true;
+  if (!Array.isArray(sampleProp)) return false;
+  
+  const parsedSample = sampleProp.map(prop => {
+    try {
+      return prop.toString();
+    } catch {
+      return undefined;
+    }
+  });
+
+  if (!Array.isArray(element)) return parsedSample.includes(element);
+  if (element.length === 0) return false;
+  element = element.map(e => e.toString());
+  for (let prop of parsedSample){
+    if (element.includes(prop)) element = element.filter(e => e !== prop);
+    if (element.length == 0) return true;
+  }
+  return false;
+}
+
+function testAfter(sampleProp: any, date: string | undefined): boolean {
+  if (!date) return true;
+  if (typeof sampleProp != 'string' && !(sampleProp instanceof Date)) return false;
+  try{
+    const propDate = new Date(sampleProp);
+    const dateDate = new Date(date);
+    return propDate >= dateDate;
+  } catch {
+    return false
+  }
+}
+
+function testBefore(sampleProp: any, date: string | undefined): boolean {
+  if (!date) return true;
+  if (typeof sampleProp != 'string' && !(sampleProp instanceof Date)) return false;
+  try{
+    const propDate = new Date(sampleProp);
+    const dateDate = new Date(date);
+    return propDate <= dateDate;
+  } catch {
+    return false
+  }
+}
+
 function testCondition(sampleProp: any, condition: WhereCondition): boolean {
   if (typeof condition === 'string' || typeof condition === 'number') return sampleProp === condition;
   if (!testLike(sampleProp, condition.like)) return false;
@@ -56,6 +101,9 @@ function testCondition(sampleProp: any, condition: WhereCondition): boolean {
   if (!testLessThan(sampleProp, condition.lessThan)) return false;
   if (!testLessThanEqualTo(sampleProp, condition.lessThanEqualTo)) return false;
   if (!testIn(sampleProp, condition.in)) return false;
+  if (!testContains(sampleProp, condition.contains)) return false;
+  if (!testAfter(sampleProp, condition.after)) return false;
+  if (!testBefore(sampleProp, condition.before)) return false;
   if (!testNot(sampleProp, condition.not)) return false;
   return true;
 }

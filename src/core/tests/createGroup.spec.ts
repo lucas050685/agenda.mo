@@ -3,19 +3,20 @@ import { createGroup } from '../createGroup';
 import { createUser } from '../createUser';
 import { Group } from '../types';
 import { createMemoryAdapters } from './createMemoryAdapters';
+import { createState } from './createState';
 
-describe("Create group", ()=>{
+describe("Create group", async ()=>{
   const adapters = createMemoryAdapters();
-  const userMock = { email: 'johnny@agendamo.net' }
+  const [state, updateState] = createState(await adapters.pushMocks());
 
-  beforeEach(()=>{
+  beforeEach(async ()=>{
     adapters.clear();
+    updateState(await adapters.pushMocks());
   })
 
   it("Should create a simple group with a default role in it", async ()=>{
-    const user = await createUser(userMock, adapters)
     const group: Group = {
-      admin: user.id,
+      admin: state.user.id,
       title: 'my group',
     }
 
@@ -25,6 +26,9 @@ describe("Create group", ()=>{
     const roles = await adapters.roleRepository.getByGroupId(savedGroup.id);
     expect(roles).toBeArray();
     expect(roles.length).toBe(1);
+    expect(adapters.eventBus.emit).toHaveBeenCalledTimes(2);
+    expect(adapters.eventBus.emit.mock.calls[0][0]).toBe('createGroup');
+    expect(adapters.eventBus.emit.mock.calls[1][0]).toBe('createDefaultRole');;
   })
 
   it("Should throw when admin user does not exist", async ()=>{

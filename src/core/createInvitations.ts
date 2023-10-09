@@ -1,4 +1,5 @@
-import { InvitationRepository, RendezvousRepository, UserRepository } from "./interfaces";
+import { emitEvent } from "./emitEvent";
+import { InvitationRepository, RendezvousRepository, UserRepository, EventBus } from "./interfaces";
 import { Invitation, InvitationState, SavedInvitation } from "./types";
 
 export namespace createInvitations {
@@ -11,6 +12,7 @@ export namespace createInvitations {
     userRepository: UserRepository;
     invitationRepository: InvitationRepository;
     rendezvousRepository: RendezvousRepository;
+    eventBus: EventBus;
   };
 }
 
@@ -35,7 +37,9 @@ export async function createInvitations({ rendezvousId, userIds }: Params, adapt
 
   const savedInvitations: SavedInvitation[] = [];
   for(let invitation of invitations){
-    savedInvitations.push(await adapters.invitationRepository.save(invitation));
+    const savedInvitation = await adapters.invitationRepository.save(invitation);
+    savedInvitations.push(savedInvitation);
+    emitEvent({eventName: 'createInvitation', body: {...savedInvitation}}, adapters);
   }
 
   return savedInvitations;

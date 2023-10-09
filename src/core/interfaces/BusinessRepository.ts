@@ -1,4 +1,4 @@
-import { SavedBusiness } from "@core/types";
+import { SavedBusiness, Business } from "@core/types";
 
 export interface BusinessRepository {
   save(business: Business): Promise<SavedBusiness>;

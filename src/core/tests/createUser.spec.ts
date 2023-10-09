@@ -1,13 +1,12 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { createUser } from '../createUser';
-import { MemoryUserRepository } from '@adapters/memory/MemoryUserRepository';
+import { createMemoryAdapters } from './createMemoryAdapters';
 
 describe("Create user", ()=>{
-  const userRepository = new MemoryUserRepository();
-  const adapters = { userRepository };
+  const adapters = createMemoryAdapters();
 
   beforeEach(()=>{
-    userRepository.clear();
+    adapters.clear();
   })
 
   it("Should create a simple user",  async ()=>{
@@ -16,6 +15,8 @@ describe("Create user", ()=>{
     const user = await createUser(userData, adapters);
 
     expect(user.id).toBeString();
+    expect(adapters.eventBus.emit).toHaveBeenCalledTimes(1);
+    expect(adapters.eventBus.emit.mock.calls[0][0]).toBe('createUser');
   });
 
   it.each([
@@ -41,5 +42,15 @@ describe("Create user", ()=>{
     expect(savedUser1.id).toBeString();
     expect(savedUser2.id).toBeString();
     expect(async () => createUser(user3, adapters)).toThrow();
+  });
+
+  it("Should hash the user password", async () => {
+    const user = { email: "johnny@agendamo.net", password: '123456' };
+
+    const savedUser = await createUser(user, adapters);
+
+    expect(savedUser.password).toBeString();
+    expect(savedUser.password).not.toBeEmpty();
+    expect(savedUser.password).not.toBe(user.password);
   });
 });

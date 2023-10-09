@@ -5,7 +5,7 @@ import { Place } from '../types';
 import { createPlace } from '@core/createPlace';
 import { NoExistentGroup } from '@core/errors';
 
-describe('create a place', async ()=>{
+describe('Create a place', async ()=>{
   const adapters = createMemoryAdapters();
   const [state, updateState] = createState(await adapters.pushMocks());
 
@@ -22,6 +22,8 @@ describe('create a place', async ()=>{
     const savedPlace = await createPlace(place, adapters)
 
     expect(savedPlace.id).toBeString();
+    expect(adapters.eventBus.emit).toHaveBeenCalledTimes(1);
+    expect(adapters.eventBus.emit.mock.calls[0][0]).toBe('createPlace');
   });
 
   it('Should throw when apply a place to no existent group', async ()=>{

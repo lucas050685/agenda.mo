@@ -1,6 +1,7 @@
 import { RoleRepository } from '@core/interfaces';
-import { Role, SavedRole } from '@core/types';
+import { Role, SavedRole, WhereStatement } from '@core/types';
 import { createEntityBase } from './createEntityBase';
+import { match } from './match';
 
 const roleDatabase: Map<string, SavedRole> = new Map();
 
@@ -20,6 +21,10 @@ export class MemoryRoleRepository implements RoleRepository {
     return roles.filter((role)=> role.groupId === groupId);
   }
 
+  async getById(roleId: string): Promise<SavedRole | undefined> {
+    return roleDatabase.get(roleId);
+  }
+
   async update(savedRole: SavedRole): Promise<SavedRole> {
     const existentRole = roleDatabase.get(savedRole.id);
     const newRole = {
@@ -28,6 +33,12 @@ export class MemoryRoleRepository implements RoleRepository {
     }
     roleDatabase.set(savedRole.id, {...newRole});
     return newRole;
+  }
+
+  async where(where: WhereStatement | WhereStatement[]): Promise<SavedRole[]> {
+    const allRoles = [...roleDatabase.values()];
+    const roles = allRoles.filter(role => match(role, where));
+    return roles.map(role => ({...role}));
   }
 
   clear(): void {

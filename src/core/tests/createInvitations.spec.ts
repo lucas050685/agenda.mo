@@ -32,5 +32,7 @@ describe('Create invitations', async ()=>{
     expect(invitations).toBeArray();
     expect(invitations.length).toBe(1);
     expect(invitations[0].id).toBeString();
+    expect(adapters.eventBus.emit).toHaveBeenCalledTimes(1);
+    expect(adapters.eventBus.emit.mock.calls[0][0]).toBe('createInvitation');
   });
 });

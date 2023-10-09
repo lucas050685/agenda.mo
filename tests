@@ -1,0 +1,6 @@
+should create a simple entity
+should throw when parent EntityId does not exists
+should throw when entity definition is not valid
+should rollback in transactional scenarios
+should log the transaction
+miss implementation in eventbus should not stop the command to finish

@@ -1,3 +1,4 @@
+import { mock } from 'bun:test';
 import { MemoryGroupRepository } from "@adapters/memory/MemoryGroupRepository";
 import { MemoryInvitationRepository } from "@adapters/memory/MemoryInvitationRepository";
 import { MemoryPlaceRepository } from "@adapters/memory/MemoryPlaceRepository";
@@ -5,9 +6,11 @@ import { MemoryRendezvousRepository } from "@adapters/memory/MemoryRendezvousRep
 import { MemoryRoleRepository } from "@adapters/memory/MemoryRoleRepository";
 import { MemoryUserRepository } from "@adapters/memory/MemoryUserRepository";
 import { MemoryBusinessRepository } from "@adapters/memory/MemoryBusinessRepository";
-import { User, Group, Role, Rendezvous, Business } from "@core/types";
+import { User, Group, Role, Business, Rendezvous, Invitation } from "@core/types";
 import { address } from "./address.mock";
 import { MemoryBusinessRoleRepository } from "@adapters/memory/MemoryBusinessRoleRepository";
+import { createMockDates } from './createMockDates';
+import { SystemPasswordAdapter, SystemTokenizerAdapter } from '@adapters/system';
 
 export function createMemoryAdapters(){
   const groupRepository = new MemoryGroupRepository();
@@ -18,6 +21,12 @@ export function createMemoryAdapters(){
   const placeRepository = new MemoryPlaceRepository();
   const businessRepository = new MemoryBusinessRepository();
   const businessRoleRepository = new MemoryBusinessRoleRepository();
+  const passwordAdapter = new SystemPasswordAdapter();
+  const tokenizerAdapter = new SystemTokenizerAdapter('test');
+
+  const eventBus = {
+    emit: mock((eventName: any, body: any)=> undefined),
+  };
 
   const clear = () => {
     groupRepository.clear();
@@ -28,12 +37,14 @@ export function createMemoryAdapters(){
     placeRepository.clear();
     businessRepository.clear();
     businessRoleRepository.clear();
+    eventBus.emit.mockReset();
   };
 
   const pushMocks = async () => {
-    const user: User = { email: 'johnny@agendamo.net' };
+    const [password, passwordDetails] = await passwordAdapter.hash('123456');
+    const user: User = { email: 'mock_johnny@agendamo.net', password, passwordDetails };
     const savedUser = await userRepository.save(user);
-    const group: Group = { admin: savedUser.id, title: 'test-group' }
+    const group: Group = { admin: savedUser.id, title: 'mock-test-group' }
     const savedGroup = await groupRepository.save(group);
     const role: Role = {
       groupId: savedGroup.id,
@@ -42,6 +53,7 @@ export function createMemoryAdapters(){
       default: true,
     };
     const savedRole = await roleRepository.save(role);
+    savedGroup.defaultRoleId = savedRole.id;
     return {
       user: savedUser,
       group: savedGroup,
@@ -49,7 +61,7 @@ export function createMemoryAdapters(){
     };
   };
 
-  const pushMocksWithBusiness = async ()=>{
+  const pushMocksWithBusiness = async () => {
     const state = await pushMocks();
     const business: Business = {
       title: 'my business',
@@ -64,7 +76,29 @@ export function createMemoryAdapters(){
       ...state,
       business: savedBusiness,
     }
-  }
+  };
+
+  const pushMocksWithRendezvous = async () => {
+    const state = await pushMocks();
+    const { tomorrow } = createMockDates();
+    const rendezvous: Rendezvous = {
+      groupId: state.group.id,
+      date: tomorrow.toISOString(),
+      title: 'mock rendezvous',
+    };
+    const savedRendevous = await rendezvousRepository.save(rendezvous);
+    const invitation: Invitation = {
+      rendezvousId: savedRendevous.id,
+      userId: state.user.id,
+      state: "pending",
+    }
+    const savedInvitation = await invitationRepository.save(invitation);
+    return {
+      ...state,
+      redezvous: savedRendevous,
+      invitation: savedInvitation,
+    }
+  };
 
   return {
     groupRepository,
@@ -75,9 +109,13 @@ export function createMemoryAdapters(){
     placeRepository,
     businessRepository,
     businessRoleRepository,
+    passwordAdapter,
+    tokenizerAdapter,
+    eventBus,
 
     clear,
     pushMocks,
     pushMocksWithBusiness,
+    pushMocksWithRendezvous,
   };
 }

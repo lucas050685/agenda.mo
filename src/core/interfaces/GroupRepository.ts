@@ -1,6 +1,5 @@
 import { Group, SavedGroup } from "@core/types";
+import { GeneralInterface } from "./GeneralRepository";
 
-export interface GroupRepository {
-  save(group: Group): Promise<SavedGroup>;
-  getById(groupId: string): Promise<SavedGroup | undefined>;
+export interface GroupRepository extends GeneralInterface<Group, SavedGroup> {
 }

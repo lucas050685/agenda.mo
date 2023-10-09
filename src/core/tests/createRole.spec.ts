@@ -23,6 +23,8 @@ describe('Create role', async () => {
     const savedRole = await createRole(role, adapters);
 
     expect(savedRole.id).toBeString();
+    expect(adapters.eventBus.emit).toHaveBeenCalledTimes(1);
+    expect(adapters.eventBus.emit.mock.calls[0][0]).toBe('createRole');
   });
 
   it('Should throw when group does not exist', async () => {

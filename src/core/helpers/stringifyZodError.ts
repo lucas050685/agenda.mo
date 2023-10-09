@@ -5,7 +5,11 @@ export function stringifyZodError(error: ZodError): string {
   const lines: string[] = [];
 
   errors.forEach(e => {
-    const message = `${e.path.join(' | ')}: ${e.message}`;
+    const pathName = e.path.length > 0 ? 
+      `${e.path.join(' | ')}:` : 
+      `${(e as any).expected ?? 'object'} is`.toLowerCase();
+
+    const message = `${pathName} ${e.message}`;
     lines.push(message);
   })
 

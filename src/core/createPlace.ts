@@ -1,11 +1,13 @@
+import { emitEvent } from "./emitEvent";
 import { NoExistentGroup } from "./errors";
-import { GroupRepository, PlaceRepository } from "./interfaces";
+import { EventBus, GroupRepository, PlaceRepository } from "./interfaces";
 import { SavedPlace, Place } from "./types";
 
 export namespace createPlace {
   export type Adapters = {
     groupRepository: GroupRepository;
     placeRepository: PlaceRepository;
+    eventBus: EventBus;
   }
 }
 
@@ -17,5 +19,6 @@ export async function createPlace(place: Place, adapters: Adapters): Promise<Sav
     if (!group) throw new NoExistentGroup(place.groupId);
   }
   const savedPlace = await adapters.placeRepository.save(place);
+  emitEvent({eventName: 'createPlace', body: {...savedPlace}}, adapters);
   return savedPlace;
 }

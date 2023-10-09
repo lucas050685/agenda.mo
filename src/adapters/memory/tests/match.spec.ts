@@ -182,4 +182,53 @@ describe('Match object', () => {
 
     expect(match(sample, where)).toBe(result);
   });
+
+  it.each([
+    [{ids: ['1', '2', '3']}, false],
+    [{ids: ['1', '2', '3', '4']}, true],
+    [{ids: ['1', '2', '3', 4]}, true],
+  ])('Should match when contains', (...args) => {
+    const [sample, result] = args as [any, boolean];
+    const where: WhereStatement = {
+      ids: {
+        contains: '4'
+      }
+    }
+
+    expect(match(sample, where)).toBe(result);
+  });
+
+  it.each([
+    [{ids: ['1', '2', '3']}, false],
+    [{ids: ['1', '2', '3', '4']}, true],
+    [{ids: ['1', '2', '3', 4]}, true],
+    [{ids: ['2', '3', '4']}, false],
+    [{ids: ['1', '4']}, true],
+  ])('Should match when contains elements from array', (...args) => {
+    const [sample, result] = args as [any, boolean];
+    const where: WhereStatement = {
+      ids: {
+        contains: [1, '4']
+      }
+    }
+
+    expect(match(sample, where)).toBe(result);
+  });
+
+  it.each([
+    [{ date: '2023-01-02T00:00:00.000Z' }, true],
+    [{ date: '2022-01-02T00:00:00.000Z' }, false],
+    [{ date: '2023-01-01T12:00:00.000Z' }, true],
+    [{ date: '2023-01-01T12:00:01.000Z' }, true],
+    [{ date: '2023-01-01T11:59:59.000Z' }, false],
+  ])('Should match a date after', (...args)=>{
+    const [sample, result] = args as [any, boolean];
+    const where: WhereStatement = {
+      date: {
+        after: '2023-01-01T12:00:00.000Z'
+      }
+    };
+
+    expect(match(sample, where)).toBe(result);
+  })
 });

@@ -6,8 +6,10 @@ People connector
 bun dev
 ```
 
+> Note: in production it should use npm to install packages, otherwise it will not run the postinstall scripts.
+
 # Database Adapters
-# Where Statement
+## Where Statement
 Most database adapters should have the ability to convert a `where statement` to their own search pattern.
 
 This is the type of `where statements`

@@ -1,8 +1,6 @@
 import { User, SavedUser, WhereStatement } from "@core/types"
+import { GeneralInterface } from "./GeneralRepository"
 
-export interface UserRepository {
-  save(user: User): Promise<SavedUser>
+export interface UserRepository extends GeneralInterface<User, SavedUser> {
   getByEmail(email: string): Promise<SavedUser | undefined>
-  getById(id: string): Promise<SavedUser | undefined>
-  where(whereStatement: WhereStatement | WhereStatement[]): Promise<SavedUser[]>
 }

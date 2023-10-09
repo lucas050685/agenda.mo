@@ -2,6 +2,7 @@ export * from './AddressValidator';
 export * from './BusinessRoleValidator';
 export * from './BusinessValidator';
 export * from './EntityBaseValidator';
+export * from './EventNameValidator';
 export * from './GroupValidator';
 export * from './InvitationValidator';
 export * from './PhoneNumberValidator';

@@ -8,7 +8,7 @@ import { createMockDates } from './createMockDates';
 describe('Create rendezvous', async ()=>{
   const adapters = createMemoryAdapters();
   const [state, updateState] = createState(await adapters.pushMocks());
-  const {today, tomorrow} = createMockDates();
+  const { tomorrow } = createMockDates();
 
   beforeEach(async ()=>{
     adapters.clear();
@@ -25,5 +25,7 @@ describe('Create rendezvous', async ()=>{
     const savedRendezvou = await createRendezvous(rendezvous, adapters);
 
     expect(savedRendezvou.id).toBeString();
+    expect(adapters.eventBus.emit).toHaveBeenCalledTimes(1);
+    expect(adapters.eventBus.emit.mock.calls[0][0]).toBe('createRendezvous');
   });
 });
