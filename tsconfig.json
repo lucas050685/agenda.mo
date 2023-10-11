@@ -15,11 +15,8 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "typeRoots": [
-      "@types",
-      "./node_modules/@types",
-    ],
     "types": [
+      "@types",
       "bun-types" // add Bun global
     ],
     "baseUrl": "./src",

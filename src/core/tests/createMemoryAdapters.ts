@@ -41,7 +41,8 @@ export function createMemoryAdapters(){
   };
 
   const pushMocks = async () => {
-    const [password, passwordDetails] = await passwordAdapter.hash('123456');
+    const userPassword = '123456';
+    const [password, passwordDetails] = await passwordAdapter.hash(userPassword);
     const user: User = { email: 'mock_johnny@agendamo.net', password, passwordDetails };
     const savedUser = await userRepository.save(user);
     const group: Group = { admin: savedUser.id, title: 'mock-test-group' }
@@ -55,6 +56,7 @@ export function createMemoryAdapters(){
     const savedRole = await roleRepository.save(role);
     savedGroup.defaultRoleId = savedRole.id;
     return {
+      userPassword,
       user: savedUser,
       group: savedGroup,
       role: savedRole,

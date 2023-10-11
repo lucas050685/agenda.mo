@@ -6,36 +6,31 @@ import { TokenizerAdapter, UserRepository } from "@core/interfaces";
 
 function getAcessToken(req: Request): string | undefined {
   const authorizationHeaderName = 'Authorization';
-  const authorizationString = req.headers[authorizationHeaderName];
+  const authorizationString = req.headers[authorizationHeaderName] ?? req.headers[authorizationHeaderName.toLocaleLowerCase()];
   if (typeof authorizationString !== 'string') return undefined;
   const token = authorizationString.split(' ')[1];
   return token;
 }
 
-export namespace createAuthMiddleware {
+export namespace authMiddleware {
   export type Adapters = {
     userRepository: UserRepository;
     tokenizerAdapter: TokenizerAdapter;
   }
 }
 
-type Adapters = createAuthMiddleware.Adapters;
+type Adapters = authMiddleware.Adapters;
 
-export function createAuthMiddleware(adapters: Adapters, options?: RouterOptions): Handler {
+export function AuthMiddleware(adapters: Adapters, options?: RouterOptions): Handler {
   
-  const { 
-    successPresenter,
-    notFoundPresenter,
-    errorPresenter,
-    unauthenticatedPresenter,
-  } = {
+  const { unauthenticatedPresenter } = {
     ...defaultOptions,
     ...options,
   }
 
   const middleware = async (req: Request, res: Response, next: NextFunction) => {
     const token = getAcessToken(req);
-    if (!token) return unauthenticatedPresenter.present(`Token is missing`, res);
+    if (!token) return unauthenticatedPresenter.present(`Token is missing or malformed`, res);
 
     try{
       const userData = await validateUserToken(token, adapters);
@@ -44,7 +39,7 @@ export function createAuthMiddleware(adapters: Adapters, options?: RouterOptions
       return unauthenticatedPresenter.present(e, res);
     }
 
-    next();
+    return next();
   };
 
   return middleware;

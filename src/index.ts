@@ -1,12 +1,14 @@
 import { createMemoryAdapters } from '@factories/createMemoryAdapters';
 import { createApp } from '@server/app';
-import { createUserRouter } from '@server/routes';
+import { userRouter, groupRouter } from '@server/routes';
 
 import { config } from './app.config';
 
-const adapter = createMemoryAdapters();
+const adapters = createMemoryAdapters();
 const app = createApp(config);
 
-app.use('/api/user', createUserRouter(adapter))
+app
+  .use('/api/user', userRouter(adapters))
+  .use('/api/group', groupRouter(adapters));
 
 app.listen();
