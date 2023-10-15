@@ -1,8 +1,8 @@
-import { Rendezvous } from '@core/types';
+import { Rendezvous } from '@/core/types';
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { createRendezvous } from '@core/createRendezvous';
+import { createRendezvous } from '@/core/createRendezvous';
 import { createMockDates } from './createMockDates';
 
 describe('Create rendezvous', async ()=>{

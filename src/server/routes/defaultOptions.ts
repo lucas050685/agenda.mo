@@ -3,7 +3,7 @@ import {
   ExpressNotFoundPresenter,
   ExpressErrorPresenter,
   ExpressUnauthenticatedPresenter
-} from "@server/presenters";
+} from "@/server/presenters";
 
 export const defaultOptions = {
   successPresenter: new ExpressSuccessPresenter(),

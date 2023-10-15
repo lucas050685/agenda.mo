@@ -1,5 +1,5 @@
 import { password as crypt } from 'bun'
-import { PasswordAdapter } from "@core/interfaces";
+import { PasswordAdapter } from "@/core/interfaces";
 
 export namespace SystemPasswordAdapter {
   export type Options = {

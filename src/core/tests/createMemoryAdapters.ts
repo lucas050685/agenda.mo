@@ -1,16 +1,16 @@
 import { mock } from 'bun:test';
-import { MemoryGroupRepository } from "@adapters/memory/MemoryGroupRepository";
-import { MemoryInvitationRepository } from "@adapters/memory/MemoryInvitationRepository";
-import { MemoryPlaceRepository } from "@adapters/memory/MemoryPlaceRepository";
-import { MemoryRendezvousRepository } from "@adapters/memory/MemoryRendezvousRepository";
-import { MemoryRoleRepository } from "@adapters/memory/MemoryRoleRepository";
-import { MemoryUserRepository } from "@adapters/memory/MemoryUserRepository";
-import { MemoryBusinessRepository } from "@adapters/memory/MemoryBusinessRepository";
-import { User, Group, Role, Business, Rendezvous, Invitation } from "@core/types";
+import { MemoryGroupRepository } from "@/adapters/memory/MemoryGroupRepository";
+import { MemoryInvitationRepository } from "@/adapters/memory/MemoryInvitationRepository";
+import { MemoryPlaceRepository } from "@/adapters/memory/MemoryPlaceRepository";
+import { MemoryRendezvousRepository } from "@/adapters/memory/MemoryRendezvousRepository";
+import { MemoryRoleRepository } from "@/adapters/memory/MemoryRoleRepository";
+import { MemoryUserRepository } from "@/adapters/memory/MemoryUserRepository";
+import { MemoryBusinessRepository } from "@/adapters/memory/MemoryBusinessRepository";
+import { User, Group, Role, Business, Rendezvous, Invitation } from "@/core/types";
 import { address } from "./address.mock";
-import { MemoryBusinessRoleRepository } from "@adapters/memory/MemoryBusinessRoleRepository";
+import { MemoryBusinessRoleRepository } from "@/adapters/memory/MemoryBusinessRoleRepository";
 import { createMockDates } from './createMockDates';
-import { SystemPasswordAdapter, SystemTokenizerAdapter } from '@adapters/system';
+import { SystemPasswordAdapter, SystemTokenizerAdapter } from '@/adapters/system';
 
 export function createMemoryAdapters(){
   const groupRepository = new MemoryGroupRepository();

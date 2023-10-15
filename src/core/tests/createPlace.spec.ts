@@ -2,8 +2,8 @@ import { beforeEach, describe, it, expect } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
 import { Place } from '../types';
-import { createPlace } from '@core/createPlace';
-import { NoExistentGroup } from '@core/errors';
+import { createPlace } from '@/core/createPlace';
+import { NoExistentGroup } from '@/core/errors';
 
 describe('Create a place', async ()=>{
   const adapters = createMemoryAdapters();

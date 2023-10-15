@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { Rendezvous } from '@core/types';
+import { Rendezvous } from '@/core/types';
 import { createMockDates } from './createMockDates';
-import { createInvitations } from '@core/createInvitations';
+import { createInvitations } from '@/core/createInvitations';
 
 describe('Create invitations', async ()=>{
   const adapters = createMemoryAdapters();

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
+import { authenticateUser } from '@/core/authenticateUser';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { authenticateUser } from '@core/authenticateUser';
 
 describe("Authenticate user", async() => {
   const adapters = createMemoryAdapters();

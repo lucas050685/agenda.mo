@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { RouterOptions } from "@server/types";
-import { defaultOptions } from "./defaultOptions";
-import { createGroup } from '@core'
-import { EventBus, GroupRepository, RoleRepository, TokenizerAdapter, UserRepository } from "@core/interfaces";
+import { RouterOptions } from "@/server/types";
+import { createGroup } from '@/core'
+import { getGroupsByUser } from "@/core/getGroupsByUser";
+import { EventBus, GroupRepository, RoleRepository, TokenizerAdapter, UserRepository } from "@/core/interfaces";
 import { AuthMiddleware } from "./AuthMiddleware";
-import { getGroupsByUser } from "@core/getGroupsByUser";
+import { defaultOptions } from "./defaultOptions";
 
 export namespace groupRouter {
   export type Adapters = {

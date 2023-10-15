@@ -1,4 +1,4 @@
-import { Rendezvous, SavedRendezvous, WhereStatement } from "@core/types";
+import { Rendezvous, SavedRendezvous, WhereStatement } from "@/core/types";
 
 export interface RendezvousRepository {
   save(rendezvous: Rendezvous): Promise<SavedRendezvous>;

@@ -1,8 +1,8 @@
 import { beforeEach, describe, it, expect } from 'bun:test';
+import { NoExistentUser } from '@/core/errors';
 import { addUserToGroup } from '../addUserToGroup';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { NoExistentUser } from '@core/errors';
 
 describe("Add user to group", async ()=>{
   const adapters = createMemoryAdapters();

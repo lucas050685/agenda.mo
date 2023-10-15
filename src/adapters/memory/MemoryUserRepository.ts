@@ -1,8 +1,8 @@
-import { UserRepository } from '@core/interfaces';
-import { SavedUser, User, WhereStatement } from '@core/types';
+import { UserRepository } from '@/core/interfaces';
+import { SavedUser, User, WhereStatement } from '@/core/types';
 import { createEntityBase } from './createEntityBase';
 import { match } from './match';
-import { NoExistentUser } from '@core/errors';
+import { NoExistentUser } from '@/core/errors';
 
 const userDataBase: Map<string, SavedUser> = new Map();
 

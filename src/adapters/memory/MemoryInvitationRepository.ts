@@ -1,5 +1,5 @@
-import { InvitationRepository } from "@core/interfaces";
-import { Invitation, SavedInvitation, WhereStatement } from "@core/types";
+import { InvitationRepository } from "@/core/interfaces";
+import { Invitation, SavedInvitation, WhereStatement } from "@/core/types";
 import { createEntityBase } from "./createEntityBase";
 import { match } from "./match";
 

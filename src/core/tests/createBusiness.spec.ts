@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
+import { createBusiness } from '@/core/createBusiness';
+import { Business } from '@/core/types';
+import { NoExistentUser } from '@/core/errors';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { createBusiness } from '@core/createBusiness';
-import { Business } from '@core/types';
 import { address } from './address.mock';
-import { NoExistentUser } from '@core/errors';
 
 describe('Create business', async () => {
   const adapters = createMemoryAdapters();

@@ -1,4 +1,4 @@
-import { Role, SavedRole, WhereStatement } from "@core/types";
+import { Role, SavedRole, WhereStatement } from "@/core/types";
 
 export interface RoleRepository {
   save(role: Role): Promise<SavedRole>;

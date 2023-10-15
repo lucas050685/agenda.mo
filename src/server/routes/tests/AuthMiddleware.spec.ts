@@ -1,11 +1,11 @@
-import { createMemoryAdapters } from '@core/tests/createMemoryAdapters';
-import { createState } from '@core/tests/createState';
+import { createMemoryAdapters } from '@/core/tests/createMemoryAdapters';
+import { createState } from '@/core/tests/createState';
+import { SystemTokenizerAdapter } from '@/adapters/system';
 import { describe, expect, it } from 'bun:test';
 import { createMockExpressRequest } from './createMockExpressRequest';
 import { AuthMiddleware } from '../AuthMiddleware';
 import { createMockExpressResponse } from './createMockExpressResponse';
 import { createMockExpressNext } from './createMockExpressNext';
-import { SystemTokenizerAdapter } from '@adapters/system';
 
 describe("Auth middleware", async () => {
   const adapters = createMemoryAdapters();

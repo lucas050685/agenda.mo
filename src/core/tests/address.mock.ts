@@ -1,4 +1,4 @@
-import { Address } from '@core/types';
+import { Address } from '@/core/types';
 
 export const address: Address = {
   street: 'any street',

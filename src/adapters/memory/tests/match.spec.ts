@@ -1,4 +1,4 @@
-import { WhereStatement } from '@core/types';
+import { WhereStatement } from '@/core/types';
 import { describe, expect, it } from 'bun:test';
 import { match } from '../match';
 

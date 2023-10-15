@@ -1,5 +1,5 @@
-import { RendezvousRepository } from "@core/interfaces";
-import { Rendezvous, SavedRendezvous, WhereStatement } from "@core/types";
+import { RendezvousRepository } from "@/core/interfaces";
+import { Rendezvous, SavedRendezvous, WhereStatement } from "@/core/types";
 import { createEntityBase } from "./createEntityBase";
 import { match } from "./match";
 

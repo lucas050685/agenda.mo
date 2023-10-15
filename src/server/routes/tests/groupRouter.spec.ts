@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import request from 'supertest';
-import { createMemoryAdapters } from '@core/tests/createMemoryAdapters';
-import { createState } from '@core/tests/createState';
+import { createMemoryAdapters } from '@/core/tests/createMemoryAdapters';
+import { createState } from '@/core/tests/createState';
+import { SystemTokenizerAdapter } from '@/adapters/system';
 import { createMockApp } from './createMockApp';
 import { groupRouter } from '../groupRouter';
-import { SystemTokenizerAdapter } from '@adapters/system';
 
 describe("Group Router", async () => {
   const adapters = createMemoryAdapters();

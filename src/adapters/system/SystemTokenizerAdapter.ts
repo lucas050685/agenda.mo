@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { TokenizerAdapter } from "@core/interfaces";
+import { TokenizerAdapter } from "@/core/interfaces";
 
 export class SystemTokenizerAdapter implements TokenizerAdapter {
   private readonly secret: string;

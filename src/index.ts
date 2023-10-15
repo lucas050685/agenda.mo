@@ -1,6 +1,6 @@
-import { createMemoryAdapters } from '@factories/createMemoryAdapters';
-import { createApp } from '@server/app';
-import { userRouter, groupRouter } from '@server/routes';
+import { createMemoryAdapters } from '@/factories/createMemoryAdapters';
+import { createApp } from '@/server/app';
+import { userRouter, groupRouter } from '@/server/routes';
 
 import { config } from './app.config';
 

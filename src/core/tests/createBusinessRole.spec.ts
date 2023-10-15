@@ -1,9 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { BusinessRole } from '@core/types';
-import { createBusinessRole } from '@core/createBusinessRole';
-import { NoExistentUser } from '@core/errors';
+import { BusinessRole } from '@/core/types';
+import { createBusinessRole } from '@/core/createBusinessRole';
 
 describe('Create business role', async ()=>{
   const adapters = createMemoryAdapters();

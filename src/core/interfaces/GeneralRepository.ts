@@ -1,4 +1,4 @@
-import { WhereStatement } from "@core/types";
+import { WhereStatement } from "@/core/types";
 
 export interface GeneralInterface <GeneralEntity = any, GeneralSavedEntity = any> {
   save(entity: GeneralEntity): Promise<GeneralSavedEntity>;

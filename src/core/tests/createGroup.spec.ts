@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { createGroup } from '../createGroup';
-import { createUser } from '../createUser';
 import { Group } from '../types';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';

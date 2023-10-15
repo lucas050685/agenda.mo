@@ -1,4 +1,4 @@
-import { Invitation, SavedInvitation, WhereCondition, WhereStatement } from "@core/types";
+import { Invitation, SavedInvitation, WhereCondition, WhereStatement } from "@/core/types";
 
 export interface InvitationRepository {
   save(invitation: Invitation): Promise<SavedInvitation>;

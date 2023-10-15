@@ -1,5 +1,5 @@
-import { RoleRepository } from '@core/interfaces';
-import { Role, SavedRole, WhereStatement } from '@core/types';
+import { RoleRepository } from '@/core/interfaces';
+import { Role, SavedRole, WhereStatement } from '@/core/types';
 import { createEntityBase } from './createEntityBase';
 import { match } from './match';
 

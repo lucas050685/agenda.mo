@@ -1,8 +1,8 @@
 import { NextFunction, Response, Request, Handler } from "express";
-import { RouterOptions } from "@server/types";
+import { RouterOptions } from "@/server/types";
+import { validateUserToken } from "@/core/validateUserToken";
+import { TokenizerAdapter, UserRepository } from "@/core/interfaces";
 import { defaultOptions } from './defaultOptions'
-import { validateUserToken } from "@core/validateUserToken";
-import { TokenizerAdapter, UserRepository } from "@core/interfaces";
 
 function getAcessToken(req: Request): string | undefined {
   const authorizationHeaderName = 'Authorization';

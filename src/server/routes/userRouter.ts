@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createUser, getUserById } from '@core';
-import { EventBus, PasswordAdapter, TokenizerAdapter, UserRepository } from "@core/interfaces";
-import { NoExistentUser } from "@core/errors";
-import { RouterOptions } from "@server/types";
+import { createUser, getUserById } from '@/core';
+import { EventBus, PasswordAdapter, TokenizerAdapter, UserRepository } from "@/core/interfaces";
+import { NoExistentUser } from "@/core/errors";
+import { authenticateUser } from "@/core/authenticateUser";
+import { RouterOptions } from "@/server/types";
 import { defaultOptions } from './defaultOptions';
 import { AuthMiddleware } from "./AuthMiddleware";
-import { authenticateUser } from "@core/authenticateUser";
 
 export namespace userRouter {
   export type Adapters = {

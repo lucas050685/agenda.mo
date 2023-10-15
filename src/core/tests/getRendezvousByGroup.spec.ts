@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { getRendezvousByGroup } from '@core/getRendezvousByGroup';
+import { getRendezvousByGroup } from '@/core/getRendezvousByGroup';
 
 describe('Get rendezvous by group', async () => {
   const adapters = createMemoryAdapters();

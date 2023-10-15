@@ -3,7 +3,7 @@ import {
   MemoryGroupRepository,
   MemoryRoleRepository,
 } from '@/adapters/memory';
-import { SystemPasswordAdapter, SystemTokenizerAdapter } from '@adapters/system';
+import { SystemPasswordAdapter, SystemTokenizerAdapter } from '@/adapters/system';
 import { EventEmitter } from 'events';
 
 export function createMemoryAdapters() {

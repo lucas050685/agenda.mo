@@ -1,4 +1,4 @@
-import { WhereStatement, WhereCondition } from "@core/types";
+import { WhereStatement, WhereCondition } from "@/core/types";
 
 function regexLike(like: string): RegExp {
   const s = like.split('*').join('.*?');

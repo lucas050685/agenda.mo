@@ -1,5 +1,5 @@
-import { PlaceRepository } from "@core/interfaces";
-import { Place, SavedPlace } from "@core/types";
+import { PlaceRepository } from "@/core/interfaces";
+import { Place, SavedPlace } from "@/core/types";
 import { createEntityBase } from "./createEntityBase";
 import { clone } from './clone';
 

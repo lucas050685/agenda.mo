@@ -1,5 +1,5 @@
-import { BusinessRepository } from "@core/interfaces";
-import { Business, SavedBusiness } from "@core/types";
+import { BusinessRepository } from "@/core/interfaces";
+import { Business, SavedBusiness } from "@/core/types";
 import { createEntityBase } from './createEntityBase';
 
 const businessDatabase: Map<string, SavedBusiness> = new Map();

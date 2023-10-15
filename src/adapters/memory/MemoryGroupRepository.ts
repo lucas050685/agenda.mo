@@ -1,5 +1,5 @@
-import { GroupRepository } from '@core/interfaces/GroupRepository';
-import { Group, SavedGroup, WhereStatement } from '@core/types';
+import { GroupRepository } from '@/core/interfaces/GroupRepository';
+import { Group, SavedGroup, WhereStatement } from '@/core/types';
 import { createEntityBase } from './createEntityBase';
 import { match } from './match';
 

@@ -1,9 +1,9 @@
-import { createRole } from '@core/createRole';
-import { Role } from '@core/types';
+import { createRole } from '@/core/createRole';
+import { Role } from '@/core/types';
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
 import { createState } from './createState';
-import { NoExistentGroup } from '@core/errors';
+import { NoExistentGroup } from '@/core/errors';
 
 describe('Create role', async () => {
   const adapters = createMemoryAdapters();

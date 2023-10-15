@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import request from 'supertest';
-import { createMemoryAdapters } from '@core/tests/createMemoryAdapters';
+import { createMemoryAdapters } from '@/core/tests/createMemoryAdapters';
+import { createState } from '@/core/tests/createState';
 import { userRouter } from '../userRouter';
 import { createMockApp } from './createMockApp';
-import { createState } from '@core/tests/createState';
-
 
 describe('User router', async ()=>{
   const defaultHeaders = { Accept: 'application/json' };

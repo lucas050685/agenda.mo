@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createMemoryAdapters } from './createMemoryAdapters';
-import { validateUserToken } from '@core/validateUserToken';
+import { validateUserToken } from '@/core/validateUserToken';
 
 describe("Validate user token", async () => {
   const adapters = createMemoryAdapters();

@@ -1,4 +1,4 @@
-import { HTTPPresenter } from "@server/interface/HTTPPresenter";
+import { HTTPPresenter } from "@/server/interface/HTTPPresenter";
 
 export type RouterOptions = {
   successPresenter: HTTPPresenter;
