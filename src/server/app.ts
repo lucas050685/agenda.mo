@@ -6,6 +6,9 @@ export function createApp(appConfig: AppConfig){
   const app = express();
   app.use(express.json());
   app.use(cors());
+
+  if (appConfig.publicFolder) app.use(express.static(appConfig.publicFolder));
+
   app.set('port', appConfig.port);
 
   const defaultListen = app.listen;
