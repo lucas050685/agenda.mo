@@ -1,10 +1,10 @@
-import { LoginPage } from '@/frontend/pages/Login'
-import './App.css'
+import { RouterProvider } from "react-router-dom"
+import { router } from '@/frontend/providers/router';
 
 function App() {
   return (
-    <div>
-      <LoginPage />
+    <div className="font-sans">
+      <RouterProvider router={router} />
     </div>
   )
 }
