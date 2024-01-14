@@ -3,7 +3,11 @@ import {
   MemoryGroupRepository,
   MemoryRoleRepository,
 } from '@/adapters/memory';
-import { SystemPasswordAdapter, SystemTokenizerAdapter } from '@/adapters/system';
+import { 
+  SystemPasswordAdapter, 
+  SystemTokenizerAdapter, 
+  SystemEventBusDebuger 
+} from '@/adapters/system';
 import { EventEmitter } from 'events';
 
 export function createMemoryAdapters() {
@@ -15,6 +19,6 @@ export function createMemoryAdapters() {
     roleRepository: new MemoryRoleRepository(),
     passwordAdapter: new SystemPasswordAdapter(),
     tokenizerAdapter: new SystemTokenizerAdapter(secret),
-    eventBus: new EventEmitter()
+    eventBus: new SystemEventBusDebuger()
   }
 }

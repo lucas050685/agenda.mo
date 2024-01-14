@@ -6,6 +6,7 @@ import { authenticateUser } from "@/core/authenticateUser";
 import { RouterOptions } from "@/server/types";
 import { defaultOptions } from './defaultOptions';
 import { AuthMiddleware } from "./AuthMiddleware";
+import { checkpoint } from "@/frontend/helpers";
 
 export namespace userRouter {
   export type Adapters = {
